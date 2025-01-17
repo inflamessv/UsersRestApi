@@ -6,9 +6,13 @@ pipeline{
     }
     stages {
         stage("Clonar codigo"){
-            steps{
-                //clona el repo
-                git branch: 'master', url: 'https://github.com/inflamessv/APIProduct.git'
+            steps {
+                checkout([
+                        $class           : 'GitSCM',
+                        branches         : [[name: '*/main']],
+                        userRemoteConfigs: [[url: 'https://github.com/usuario/springboot-api.git']],
+                        extensions       : [[$class: 'CleanCheckout'], [$class: 'CloneOption', noTags: false, shallow: false]]
+                ])
             }
         }
         stage("Compilar y empaquetar"){
