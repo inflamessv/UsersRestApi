@@ -23,7 +23,11 @@ pipeline{
         stage("Construir imagen docker"){
             steps{
                 //contruye imagen docker de dockerfile
-                sh 'docker build -t $IMAGE_NAME .'
+                sh '''
+                    pwd
+                    ls -l
+                    docker build -t $IMAGE_NAME .
+                '''
             }
         }
         stage("Desplegar contenedor local"){
