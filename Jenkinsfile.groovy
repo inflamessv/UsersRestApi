@@ -9,8 +9,8 @@ pipeline{
             steps {
                 checkout([
                         $class           : 'GitSCM',
-                        branches         : [[name: '*/main']],
-                        userRemoteConfigs: [[url: 'https://github.com/usuario/springboot-api.git']],
+                        branches         : [[name: '*/master']],
+                        userRemoteConfigs: [[url: 'https://github.com/inflamessv/UsersRestApi.git']],
                         extensions       : [[$class: 'CleanCheckout'], [$class: 'CloneOption', noTags: false, shallow: false]]
                 ])
             }
