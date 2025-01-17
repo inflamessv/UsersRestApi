@@ -14,7 +14,7 @@ pipeline{
         stage("Compilar y empaquetar"){
             steps{
                 //compila y empaqueta
-                sh './mvn clean package'
+                sh './mvnw clean package'
             }
         }
         stage("Construir imagen docker"){
