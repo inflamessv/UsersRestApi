@@ -10,22 +10,22 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     private static final List<UserDto> listUsers = new ArrayList<>();
 
-    @GetMapping(path = "/list")
+    @GetMapping
     public ResponseEntity<List<UserDto>>getUserByName(){
         return new ResponseEntity<>(listUsers, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/findById")
-    public ResponseEntity<UserDto>findById(@RequestParam Integer id){
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<UserDto>findById(@PathVariable Integer id){
         return new ResponseEntity<>(listUsers.get(id-1),HttpStatus.OK);
     }
 
-    @GetMapping(path = "/findByNameAndAge")
+    @GetMapping
     public ResponseEntity<List<UserDto>>findByNameAndAge(@RequestParam(defaultValue = "Test1",name = "nombre") String name,
                                                          @RequestParam(required = false, name = "edad") Integer age){
         List<UserDto>filteredUsers=listUsers.stream()
@@ -41,7 +41,7 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/update/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Integer id,
                                               @RequestBody UserDto user){
         UserDto userUpdated = listUsers.get(id-1);
@@ -51,7 +51,7 @@ public class UserController {
         return new ResponseEntity<>(userUpdated,HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable Integer id){
         UserDto userDeleted = listUsers.get(id-1);
         listUsers.remove(id-1);
